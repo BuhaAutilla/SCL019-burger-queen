@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -7,23 +7,41 @@ import logo from '../burger_Queen Logo.svg';
 import '../App.css';
 import TodoMenu from "../data/menu.js";
 import Order from './Order';
-import { guardarPedido } from '../data/compilacion';
+import { guardarPedido, wallCocina } from '../data/compilacion';
 import Client from './Client';
+import Waiter from './Waiter';
+import Wall from './Wall';
 
 const Menu = () => {
   const [order, setOrder] = useState([]);
+  const [client, setClient] = useState('');
+  const [waiter, setWaiter] = useState('');
+  const [pedidos, setPedidos] = useState([]);
   const handleOnClick = (name, value) => {
     setOrder([...order, {name, value}]);
   }
   const enviarPedido = () => {
-    guardarPedido(order);
+    guardarPedido(order, client, waiter);
     setOrder([]);
     alert('Pedido enviado');
   }
 
+  // const handleOrders = (wall) => {
+  //   wallCocina();
+  // }
+
   const onLimpiar = () => {
     setOrder([]);
   };
+
+  useEffect (() => {
+    async function fetchPedidos() {
+      const response = await wallCocina();
+      setPedidos(response);
+      console.log(response);
+      }
+    fetchPedidos();
+  }, []);
 
   return (
     <div className="main-container">
@@ -203,6 +221,8 @@ const Menu = () => {
             <div>
                 <div className="menuContainer">
                   <div className="orderContainer">
+                  <Client setClient={setClient}/>
+                  <Waiter setWaiter={setWaiter}/>
                     <Order order={order} />
                     <div className="rowButtons">
                     <div>
@@ -217,7 +237,7 @@ const Menu = () => {
               </div>
             </TabPanel>
             <TabPanel>
-              <div>Aqui list of orders with state</div>
+              <Wall pedido={pedidos} />
             </TabPanel>
         </Tabs>  
         </Col>

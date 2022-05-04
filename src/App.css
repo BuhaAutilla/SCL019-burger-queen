@@ -69,6 +69,7 @@ html{
   border-radius: 6px;
   margin:auto;
   padding: 10px;
+  gap: 5%;
 }
 
 .orderContainer{
@@ -91,6 +92,7 @@ html{
   border: none;
   border-radius: 6px;
   color: black;
+  font-size: small;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -158,6 +160,19 @@ html{
 .menu-icons-home img{
   width: 50px;
   height: 50px;
+}
+
+.pedido-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: left;
+  margin:auto;
+  padding: 10px;
+  background-color: aliceblue;
+  border-radius: 6px;
+  color:#000000;
+  box-shadow: #000000;
 }
 
 
