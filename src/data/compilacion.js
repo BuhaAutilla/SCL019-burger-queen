@@ -1,6 +1,6 @@
 // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, Timestamp, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, Timestamp, getDocs, getDoc, doc, updateDoc } from "firebase/firestore";
 // import { firebaseConfig } from ".data/firebaseConfig.js";
 // import {
 //     getFirestore, collection,
@@ -20,7 +20,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-console.log(db);
+// console.log(db);
 
 export const guardarPedido = async (order, client, waiter) => {
     const chef = await addDoc(collection(db, "Pedidos"), {
@@ -31,8 +31,21 @@ export const guardarPedido = async (order, client, waiter) => {
         createdAt: Timestamp.now(),
         total: order.reduce((total, item) => total + item.value, 0)
     });
-    console.log(chef);
+    // console.log(chef);
 }
+
+export const getPedido = async (id) => {
+    let pedidoRef = doc(db, "Pedidos", id);
+    console.log(pedidoRef);
+    const pedidoSnap = await getDoc(pedidoRef);
+    return pedidoSnap;
+}
+
+export const changeStatus = async (id) => {
+    let statRef = await updateDoc(doc(db, 'Pedidos', id),
+    { status: 'Listo' });
+    return statRef;
+    };
 
 export const getTasks = () => getDocs(collection(db, "Pedidos"));
 

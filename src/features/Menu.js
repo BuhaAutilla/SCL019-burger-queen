@@ -26,10 +26,6 @@ const Menu = () => {
     alert('Pedido enviado');
   }
 
-  // const handleOrders = (wall) => {
-  //   wallCocina();
-  // }
-
   const onLimpiar = () => {
     setOrder([]);
   };
@@ -38,7 +34,6 @@ const Menu = () => {
     async function fetchPedidos() {
       const response = await wallCocina();
       setPedidos(response);
-      console.log(response);
       }
     fetchPedidos();
   }, []);
@@ -64,7 +59,7 @@ const Menu = () => {
               <div>
                 <div className="menuContainer">
                   <div className="multiple-menu-cont">
-                    <div className="line"></div>
+                    {/* <div className="line"></div> */}
                     {TodoMenu.Desayuno.Cafe.map(btn => (
                       <button
                         key={btn.name}
@@ -223,15 +218,15 @@ const Menu = () => {
                   <div className="orderContainer">
                   <Client setClient={setClient}/>
                   <Waiter setWaiter={setWaiter}/>
-                    <Order order={order} />
-                    <div className="rowButtons">
+                  <Order order={order} />
+                  <div className="rowButtons">
                     <div>
                       <button onClick={() => enviarPedido()} className="enviar-button">Enviar Pedido</button>
                     </div>
                     <div>
                       <button onClick={() => onLimpiar()} className="limpiar-button">Limpiar</button>
                     </div>
-                    </div>
+                  </div>
                   </div>
                 </div>
               </div>

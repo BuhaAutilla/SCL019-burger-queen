@@ -11,23 +11,22 @@ function Layout() {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        <Col>
+        <Col className='homeOptions'>
           <Link to={"/menu"}>
             <div className="menu-icons-home">
               <img src={garson} className="icons-home" alt="garson" />
             </div>
           </Link>
         </Col>
-        <Col>
-          <Link to={"/kitchen"}>
+        <Col className='homeOptions'>
+          <Link to={"/kitchen"} refresh="true">
             <div className="menu-icons-home">
               <img src={chef} className="icons-home" alt="chef" />
             </div>
           </Link>
         </Col>
-         {/* <Col></Col> */}
-         <Col></Col>
-        </div>
+         <Col className='homeOptions'></Col>
+      </div>
       );
     }
 
